@@ -12,12 +12,9 @@ This is a solution to the [Social links profile challenge on Frontend Mentor](ht
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
   - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -33,8 +30,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Add solution URL here](https://github.com/theodor164/social-links-profile-main)
+- Live Site URL: [Add live site URL here](https://theodor164.github.io/social-links-profile-main/)
 
 ## My process
 
@@ -43,71 +40,69 @@ Users should be able to:
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+#### Semantic HTML
 
-To see how you can add code snippets, see below:
+I learned that `<nav>` should be used instead of a generic `<div>` when a group of elements is meant for navigating to other places (in my case, the social links). I also learned that `<a href="...">` is the right element for links that take the user to another page or site, while `<button>` is meant for actions that happen on the same page (like submitting a form).
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<nav class="buttons">
+  <a class="button" href="https://github.com/...">GitHub</a>
+</nav>
 ```
+
+#### Box model
+
+I learned that `box-sizing: border-box` makes `width`/`height` include the padding and border, instead of the browser adding them on top (`content-box`, the default). This was the reason my card's measurements didn't match the Figma design at first. I also learned to check for hidden default `margin` values on elements like `<p>` and `<button>`, since those can throw off measurements too.
+
 ```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+* {
+  box-sizing: border-box;
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+#### Flexbox
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+I learned that `flex` is shorthand for three properties: `flex-grow`, `flex-shrink`, and `flex-basis`. In my case, `flex: 1 0 0` means the element grows to fill available space, never shrinks below its content, and starts from a basis of `0`.
+
+#### Responsive spacing with `clamp()`
+
+I learned to use `clamp(min, preferred, max)` so I can change the padding based on the width of the screen, without writing a separate media query. The `min` and `max` values act as safe boundaries, while the middle value (using `vw`) scales fluidly in between.
+
+```css
+.card {
+  padding: clamp(24px, 5vw, 40px);
+}
+```
+
+I also learned that I should use `box-sizing: border-box`, so that the padding is calculated inside the measurements of the card.
+
+#### Letting the browser calculate height
+
+I learned that `height: auto` lets the element's height be determined by its content, which is usually better than hardcoding a fixed height — the card only matched the design once I had filled in the real content (image, name, bio, links).
+
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- **Flexbox in depth** - I understand `flex-grow`, `flex-shrink`, and `flex-basis` now, but I want more practice with real layouts (navbars, card grids) until it feels intuitive instead of something I have to reason through step by step.
+- **CSS Grid** - I haven't used it yet. I want to learn it as the natural next step after Flexbox, for layouts that need rows and columns at the same time.
+- **Accessibility (keyboard navigation & focus states)** - I learned that links need visible `:focus` styles for keyboard users, and that `<a>` elements without `href` aren't focusable at all. I want to go deeper into accessibility basics: focus-visible, ARIA when needed, and testing with a screen reader.
+- **Responsive design beyond `clamp()`** - I want to get comfortable with traditional media queries too, so I know when to reach for `clamp()`/fluid sizing versus explicit breakpoints.
+- **Git/GitHub workflow** - I mixed up my local version with the deployed GitHub Pages version while testing. I want to get more comfortable with the commit/push/deploy cycle so I always know which version I'm actually looking at.
 
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ### AI Collaboration
 
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
-
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
-
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
+- **Tool used:** Claude (Claude Code), configured with a mentor-style `AGENTS.md` for this challenge.
+- **How I used it:** Instead of asking for finished code, I described what I was seeing (e.g. "the card's width/height doesn't match Figma", "focus isn't working on the buttons") and worked through the cause with guided questions. Claude explained concepts (box model, flexbox shorthand, `clamp()`, semantic HTML) using analogies and asked me to reason through the answer before confirming it, rather than giving the fix directly.
+- **What worked well:** The back-and-forth debugging was the most useful part - for the focus bug, instead of just telling me the answer, it asked me to test step by step (click into the page, count Tab presses) until I found out on my own that I was looking at the deployed GitHub Pages version instead of my local one, not a code problem at all. Same for the box-sizing issue - it asked guiding questions until I noticed the hidden default margins myself.
+- **What didn't work as well:** A couple of times it gave me guidance based on outdated context (e.g. assuming my HTML was still empty, or that my `<div class="buttons">` still existed) instead of re-reading the current file first, which cost a bit of back-and-forth to correct.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@theodor164](https://www.frontendmentor.io/profile/theodor164)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
